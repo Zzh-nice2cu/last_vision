@@ -62,10 +62,16 @@ public class MerchantsInventoryController {
         return merchantsInventoryService.saveOrUpdate(merchantsInventory)?Result.suc(merchantsInventory):Result.fail();
     }
 
-    //新增或修改
+    //新增
     @PostMapping("/save")
     public Result save(@RequestBody MerchantsInventory merchantsInventory){
         return merchantsInventoryService.save(merchantsInventory)?Result.suc(merchantsInventory):Result.fail();
+    }
+
+    //新增或修改
+    @PostMapping("/modOnly")
+    public Result modOnly(@RequestBody MerchantsInventory merchantsInventory){
+        return merchantsInventoryService.updateById(merchantsInventory)?Result.suc(merchantsInventory):Result.fail();
     }
 
     //删除
