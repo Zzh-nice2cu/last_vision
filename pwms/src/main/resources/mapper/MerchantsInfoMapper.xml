@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzh.pwms.Mapper.MerchantsInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zzh.pwms.Entity.MerchantsInfo">
+        <id column="id" property="id" />
+        <result column="username" property="username" />
+        <result column="password" property="password" />
+        <result column="name" property="name" />
+        <result column="address" property="address" />
+        <result column="phone" property="phone" />
+        <result column="email" property="email" />
+        <result column="remark" property="remark" />
+        <result column="permission_type" property="permissionType" />
+        <result column="is_on" property="isOn" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, username, password, name, address, phone, email, remark, permission_type,is_on
+    </sql>
+
+    <update id="updatePermissionType">
+        -- 更新商户信息中的权限类型
+        UPDATE merchants_info SET permission_type = #{permissionType} WHERE id = #{id};
+    </update>
+
+    <select id="selectByPermissionType" resultType="com.zzh.pwms.Entity.MerchantsInfo">
+        -- 根据权限类型查询商户信息
+        SELECT * FROM merchants_info WHERE permission_type = #{permissionType};
+    </select>
+
+    <select id="pageCC" resultType="com.zzh.pwms.Entity.MerchantsInfo">
+        select * from merchants_info ${ew.customSqlSegment}
+    </select>
+
+</mapper>

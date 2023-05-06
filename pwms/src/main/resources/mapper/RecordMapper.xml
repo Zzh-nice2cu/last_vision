@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzh.pwms.Mapper.RecordMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zzh.pwms.Entity.Record">
+        <id column="id" property="id" />
+        <result column="good_id" property="goodId" />
+        <result column="user_id" property="userId" />
+        <result column="count" property="count" />
+        <result column="operate_time" property="operateTime" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, good_id, user_id, count, operate_time, remark, in_or_out
+    </sql>
+
+    <select id="pageCC" resultType="com.zzh.pwms.Entity.RecordTrans">
+        select r.*, m.username as userName, p.name as paintName
+        from record r
+                 inner join merchants_info m on r.user_id = m.id
+                 inner join paints p on r.good_id = p.id
+            ${ew.customSqlSegment}
+    </select>
+
+</mapper>

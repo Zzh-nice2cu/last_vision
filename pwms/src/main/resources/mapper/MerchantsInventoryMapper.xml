@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzh.pwms.Mapper.MerchantsInventoryMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zzh.pwms.Entity.MerchantsInventory">
+        <id column="id" property="id" />
+        <result column="merchant_id" property="merchantId" />
+        <result column="paint_id" property="paintId" />
+        <result column="supplier_id" property="supplierId" />
+        <result column="price" property="price" />
+        <result column="quantity" property="quantity" />
+        <result column="last_in_date" property="lastInDate" />
+        <result column="last_out_date" property="lastOutDate" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, merchant_id, paint_id, supplier_id, price, quantity, last_in_date, last_out_date, remark
+    </sql>
+
+    <update id="updateIntime">
+        UPDATE merchants_inventory SET last_in_date = #{lastInDate} WHERE id = #{id};
+    </update>
+    <update id="updateOuttime">
+        UPDATE merchants_inventory SET last_out_date = #{lastOutDate} WHERE id = #{id};
+    </update>
+
+    <select id="pageCC" resultType="com.zzh.pwms.Entity.InventoryTrans">
+        select i.*, s.name as supplierName, p.name as paintName,m.id as userId
+        from merchants_inventory i
+                 inner join supplier_info s on i.supplier_id = s.id
+                 inner join paints p on i.paint_id = p.id
+                 inner join merchants_info m on i.merchant_id = m.id
+            ${ew.customSqlSegment}
+    </select>
+</mapper>

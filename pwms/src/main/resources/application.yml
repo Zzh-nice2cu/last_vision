@@ -1,0 +1,21 @@
+
+server:
+  port: 8089
+
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/pwmsdb?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: zzh197385
+  web:
+    resources:
+#      cache:
+#        cachecontrol:
+#          no-cache: true
+#          no-store: true
+#          must-revalidate: true
+      static-locations:
+        - file:/path/to/static/
+        - classpath:/static/
